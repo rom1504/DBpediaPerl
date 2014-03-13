@@ -4,5 +4,6 @@ perl:
   
 install:
   - cpanm LWP::Simple
+  - cpanm XML::Simple
 
 script: "./run-tests.sh"

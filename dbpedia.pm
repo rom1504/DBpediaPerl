@@ -4,6 +4,7 @@ package dbpedia;
 use strict;
 use URI::Escape;
 use LWP::UserAgent;
+use XML::Simple;
 
 sub get
 {
@@ -34,6 +35,37 @@ sub get
 	{
 		die "error";
 	}
+}
+
+sub keywordSearch
+{
+	my ($query)=@_;
+	my $SERVER = 'http://lookup.dbpedia.org';
+	my $QUERYURL = $SERVER . '/api/search.asmx/KeywordSearch';
+
+
+	my $escaped = uri_escape($query);
+
+
+	my $url = $QUERYURL . "?QueryString=" . $escaped;
+# 	print($url."\n");
+	my $ua = LWP::UserAgent->new();
+
+	my $response = $ua->get($url);
+
+	if ($response->is_success)
+	{
+		my $responsetext = $response->content;
+		my $xml = new XML::Simple;
+		my $parsedxml = $xml->XMLin($responsetext);
+
+		return $parsedxml->{'Result'};
+	}
+	else
+	{
+		die "error";
+	}
+	
 }
 
 1;
