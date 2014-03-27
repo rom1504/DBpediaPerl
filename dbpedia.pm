@@ -33,6 +33,7 @@ sub get
 	}
 	else
 	{
+		print STDERR $response->{"_content"};
 		die "error";
 	}
 }
