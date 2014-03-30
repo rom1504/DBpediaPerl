@@ -31,11 +31,7 @@ sub get
 
 		return (shift @response,\@response);
 	}
-	else
-	{
-		print STDERR $response->{"_content"};
-		die "error";
-	}
+	return ("error",$response->{"_content"});
 }
 
 sub keywordSearch
