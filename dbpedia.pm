@@ -26,8 +26,16 @@ sub get
 	if ($response->is_success)
 	{
 		my $responsetext = $response->content;
-		$responsetext =~ s/"//g;
-		my @response = split("\n",$responsetext);
+		my @cars=split("",$responsetext);
+		my $new="";
+		my $in=0;
+		foreach my $car (@cars)
+		{
+			if(!$in && $car eq ',') {$new.="\t";}
+			elsif($car eq '"') {$in=!$in;}
+			else {$new.=$car;}
+		}
+		my @response = split("\n",$new);
 
 		return (shift @response,\@response);
 	}
