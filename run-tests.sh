@@ -1,5 +1,5 @@
 input=""
-expected_output="http://www.w3.org/2002/07/owl#Thing"
+expected_output="1961-08-04"
 echo input : $input
 echo expected output : $expected_output
 actual_output=$(echo $input | perl example.pl)
